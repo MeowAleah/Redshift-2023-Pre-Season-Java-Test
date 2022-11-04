@@ -4,6 +4,12 @@
 
 package frc.robot;
 
+import frc.robot.Constants;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -15,6 +21,16 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  private final MotorType m_Type = MotorType.kBrushless;
+
+  private final CANSparkMax f_l_motor = new CANSparkMax(Constants.kf_l_motor_CAN_ID, m_Type);
+  private final CANSparkMax f_r_motor = new CANSparkMax(Constants.kf_r_motor_CAN_ID, m_Type);
+  private final CANSparkMax b_l_motor = new CANSparkMax(Constants.kb_l_motor_CAN_ID, m_Type);
+  private final CANSparkMax b_r_motor = new CANSparkMax(Constants.kb_r_motor_CAN_ID, m_Type);
+
+  private final Joystick joystick = new Joystick(0);
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -27,6 +43,13 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+
+    f_l_motor.setInverted(false);
+    f_r_motor.setInverted(false);
+    b_l_motor.setInverted(false);
+    b_r_motor.setInverted(false);
+
+
     m_robotContainer = new RobotContainer();
   }
 
@@ -81,7 +104,12 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    f_l_motor.set(joystick.getY() * Constants.kspeed);
+    f_r_motor.set(joystick.getY() * Constants.kspeed);
+    b_l_motor.set(joystick.getY() * Constants.kspeed);
+    b_r_motor.set(joystick.getY() * Constants.kspeed);
+  }
 
   @Override
   public void testInit() {
