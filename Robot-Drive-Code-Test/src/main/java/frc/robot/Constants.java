@@ -23,5 +23,5 @@ public final class Constants {
     public static final boolean kBLMotorIsInverted = false;
     public static final boolean kBRMotorIsInverted = true;
 
-    public static double kspeed = 0.1;
+    public static double kSpeed = 0.1;
 }
