@@ -22,12 +22,12 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
 
-  private final MotorType m_Type = MotorType.kBrushless;
+  private final MotorType mType = MotorType.kBrushless;
 
-  private final CANSparkMax f_l_motor = new CANSparkMax(Constants.kf_l_motor_CAN_ID, m_Type);
-  private final CANSparkMax f_r_motor = new CANSparkMax(Constants.kf_r_motor_CAN_ID, m_Type);
-  private final CANSparkMax b_l_motor = new CANSparkMax(Constants.kb_l_motor_CAN_ID, m_Type);
-  private final CANSparkMax b_r_motor = new CANSparkMax(Constants.kb_r_motor_CAN_ID, m_Type);
+  private final CANSparkMax FLMotor = new CANSparkMax(Constants.kFLMotorCANID, mType);
+  private final CANSparkMax FRMotor = new CANSparkMax(Constants.kFRMotorCANID, mType);
+  private final CANSparkMax BLMotor = new CANSparkMax(Constants.kBLMotorCANID, mType);
+  private final CANSparkMax BRMotor = new CANSparkMax(Constants.kBRMotorCANID, mType);
 
   private final Joystick joystick = new Joystick(0);
 
@@ -44,10 +44,10 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
 
-    f_l_motor.setInverted(false);
-    f_r_motor.setInverted(true);
-    b_l_motor.setInverted(false);
-    b_r_motor.setInverted(true);
+    FLMotor.setInverted(Constants.kFLMotorIsInverted);
+    FRMotor.setInverted(Constants.kFRMotorIsInverted);
+    BLMotor.setInverted(Constants.kBLMotorIsInverted);
+    BRMotor.setInverted(Constants.kBRMotorIsInverted);
 
 
     m_robotContainer = new RobotContainer();
@@ -105,10 +105,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    f_l_motor.set(joystick.getY() * Constants.kspeed);
-    f_r_motor.set(joystick.getY() * Constants.kspeed);
-    b_l_motor.set(joystick.getY() * Constants.kspeed);
-    b_r_motor.set(joystick.getY() * Constants.kspeed);
+    FLMotor.set(joystick.getY() * Constants.kspeed);
+    FRMotor.set(joystick.getY() * Constants.kspeed);
+    BLMotor.set(joystick.getY() * Constants.kspeed);
+    BRMotor.set(joystick.getY() * Constants.kspeed);
   }
 
   @Override
